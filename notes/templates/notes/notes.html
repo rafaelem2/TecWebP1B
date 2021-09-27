@@ -1,0 +1,65 @@
+{% extends "notes/index.html" %}
+
+{% load static %}
+
+{% block notes_content %}
+
+{% for note in notes %}
+
+<div class="card">
+  <h3 class="card-title">{{note.title}}</h3>
+  <div class="card-content">
+    <p name="content">{{note.content}}</p>
+  </div>
+  <div  class="botoes">
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{note.id}}">Editar</button>
+  
+    <form method="post" action="{% url 'delete' %}">
+      {% csrf_token %}
+      <input name="id" type="hidden" value="{{note.id}}"/>
+      <div>
+        <button type="submit" class = "btn btn-danger btn-sm" >Deletar</button>
+      </div>
+    </form>
+  </div>  
+              
+                
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id='{{note.id}}' role="dialog">
+  <div class="modal-dialog modal-lg">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-title">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <form method="post" action="{% url 'edit' id=note.id %}">
+          {% csrf_token %}
+          <input name="id" type="hidden" value="{{note.id}}"/>
+          <label for="fname">Título:</label>
+          <input class="form-card-title" type="text" name="titulo" value="{{note.title}}"/>
+          <label for="fname">Conteúdo:</label>
+          <textarea class="autoresize" name="detalhes" > {{note.content}}</textarea>
+          <div class="modal-footer">
+                <button class="btn" type="submit">Salvar Alterações</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
+
+
+
+
+
