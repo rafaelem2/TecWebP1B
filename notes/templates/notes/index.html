@@ -8,6 +8,13 @@
 <div class="appbar">
     <img class="logo" src="{% static 'notes/img/logo-getit.png' %}" />
     <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    <div class = "button-tag">
+      <form method="post" action="all_tags" >
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info">All tags</button>
+  
+      </form>
+    </div>
 </div>
 
 

@@ -1,0 +1,29 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+  <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" />
+  <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+</div>
+
+<h3>LISTA DE TAGS</h3>
+
+<main class="container">
+  <div class="card-container">
+    {% for tag in tags %}
+    {% if tag.tag != '' %}
+    <form method="post" action="{% url 'tag' tag.tag %}">
+      {% csrf_token %}
+      <input name="id" type="hidden" value="{{tag.tag}}"/>
+      <div>
+        <button type="submit" class = "btn btn-info btn-lg" >{{tag.tag}}</button>
+      </div>
+    </form>
+    {% endif %}
+    {% endfor %}
+  </div>
+    
+{% endblock %}
+
+
