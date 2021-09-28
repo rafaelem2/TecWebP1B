@@ -26,7 +26,8 @@ def edit(request,id):
     content = request.POST.get('detalhes')
     tag  = request.POST.get('tag')
     note = Note.objects.get(id=id)
-    Note.objects.filter(title=note.title, content=note.content).update(title=title, content=content)
+    note.title = title
+    note.content = content
+    note.save()
 
     return redirect('index')
-
